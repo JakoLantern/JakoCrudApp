@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { SelectorCard } from '../../shared/selector-card/selector-card';
+import { Navbar } from '../../shared/navbar/navbar';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [SelectorCard],
+  imports: [Navbar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })

@@ -1,0 +1,14 @@
+// TimeSlots component styling
+// Inherits most styling from Tailwind classes in template
+
+button {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #93c5fd;
+  }
+  
+  &:disabled {
+    background-color: #f3f4f6;
+    color: #9ca3af;
+  }
+}

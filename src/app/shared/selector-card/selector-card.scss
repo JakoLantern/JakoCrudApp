@@ -1,0 +1,44 @@
+.card {
+  --card-width: 300px;
+  --card-height: 380px;
+
+  width: var(--card-width);
+  height: var(--card-height);
+
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-image {
+  width: 100%;
+  height: 40%; /* fixed portion of the card */
+  object-fit: cover; /* crop instead of squish */
+}
+
+.card-content {
+  padding: 16px;
+  flex: 1 1 auto;
+  overflow: hidden; /* prevent overflow from stretching */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.card-title {
+  margin: 0 0 8px;
+  font-size: 1.5em;
+}
+
+.card-desc {
+  margin: 0;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

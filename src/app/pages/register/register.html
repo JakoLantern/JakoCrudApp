@@ -1,1 +1,29 @@
-<p>register works!</p>
+<h1 class="text-3xl">
+    Register
+</h1>
+
+<form action="">
+    <div>
+        <label for="first-name">First Name</label>
+        <input id="first-name" type="text" placeholder="First Name" class="border p-2 mb-2 w-full" />
+    </div>
+    <div>
+        <label for="last-name">Last Name</label>
+        <input id="last-name" type="text" placeholder="Last Name" class="border p-2 mb-2 w-full" />
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Email" class="border p-2 mb-2 w-full" />
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Password" class="border p-2 mb-2 w-full" />
+    </div>
+    <div>
+        <label for="confirm-password">Confirm Password</label>
+        <input id="confirm-password" type="password" placeholder="Confirm Password" class="border p-2 mb-2 w-full" />
+    </div>
+    <button type="submit" class="bg-green-500 text-white p-2">Register</button>
+</form>
+
+<p>Or <a routerLink="/login" class="text-blue-500 underline">login</a> if you already have an account.</p>
