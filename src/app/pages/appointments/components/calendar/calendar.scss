@@ -1,0 +1,32 @@
+// d:\Josh School\Angular\jako-crud-app\src\app\pages\appointments\components\calendar\calendar.scss
+
+// Override FullCalendar theme colors to match your green theme
+.fc {
+  --fc-border-color: #e0e0e0;
+  --fc-today-bg-color: #e8f5e8;  // Light green for today
+  --fc-daygrid-event-dot-width: 10px;
+  --fc-event-bg-color: #256B55;  // Dark green for events
+  --fc-event-border-color: #256B55;
+  --fc-button-bg-color: #256B55;
+  --fc-button-border-color: #256B55;
+  --fc-button-hover-bg-color: #1e4a3a;
+  --fc-button-active-bg-color: #1e4a3a;
+}
+
+// Custom styles for headers, buttons, etc.
+.fc-header-toolbar {
+  margin-bottom: 1rem;
+}
+
+.fc-button {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.fc-daygrid-day:hover {
+  background-color: #f0f9f0;
+}
+
+.fc-day-today {
+  background-color: var(--fc-today-bg-color) !important;
+}

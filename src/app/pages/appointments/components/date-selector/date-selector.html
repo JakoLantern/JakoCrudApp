@@ -1,16 +1,16 @@
-<div class="bg-white rounded-xl shadow-lg border border-green-100 p-6 h-full">
+<div class="bg-white rounded-xl shadow-lg p-6 h-full">
   <div class="flex items-center justify-center mb-4">
-    <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-    <h3 class="text-lg font-semibold text-gray-800">Choose a Date</h3>
+    <h3 class="text-2xl font-semibold text-gray-800">1. Choose a Date</h3>
   </div>
   
   <div class="flex justify-center">
     <app-calendar (dateSelected)="onDateSelected($event)"></app-calendar>
   </div>
   
-  <div *ngIf="selectedDate" class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+  <!-- Lets have this transferred somewhere else nalang -->
+  <!-- <div *ngIf="selectedDate" class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
     <p class="text-sm text-green-700 text-center">
       Selected: {{ selectedDate | date:'fullDate' }}
     </p>
-  </div>
+  </div> -->
 </div>

@@ -10,11 +10,10 @@
         <li><a routerLink="/appointments" routerLinkActive="active" class="nav-link">Appointments</a></li>
     </ul>
 
-
     <!-- Right: Actions -->
     <div class="flex items-center space-x-4">
         <!-- Mobile menu button -->
-        <button class="lg:hidden p-2 rounded-md hover:bg-gray-100">
+        <button (click)="toggleMenu()" class="lg:hidden p-2 rounded-md hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -22,6 +21,16 @@
         </button>
 
         <button routerLink="/login" class="bg-red-500 text-white py-2 px-4 rounded"
-            style="cursor: pointer;">logout</button>
+            style="cursor: pointer;">Logout</button>
     </div>
+
+    <!-- Mobile menu -->
+    @if (isMenuOpen) {
+    <div class="lg:hidden absolute top-full left-0 right-0 bg-white shadow-md border-t">
+        <ul class="flex flex-col space-y-2 p-4">
+            <li><a routerLink="/dashboard" routerLinkActive="active" class="nav-link block" (click)="toggleMenu()">Home</a></li>
+            <li><a routerLink="/appointments" routerLinkActive="active" class="nav-link block" (click)="toggleMenu()">Appointments</a></li>
+        </ul>
+    </div>
+    }
 </nav>

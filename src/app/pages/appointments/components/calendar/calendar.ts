@@ -21,7 +21,21 @@ export class CalendarComponent {
       { title: 'Meeting with Team', date: '2025-09-25' }
     ],
     selectable: true,
-    selectMirror: true
+    selectMirror: true,
+    // Add theme and styling options here
+    themeSystem: 'bootstrap',  // or 'bootstrap' for Bootstrap-like styling
+    headerToolbar: {
+      left: 'prev',
+      center: 'title',
+      right: 'next'
+    },
+    height: 'auto',  // Adjust height
+    aspectRatio: 1.35,  // Adjust aspect ratio
+    // Custom colors
+    eventColor: '#256B55',  // Green for events
+    validRange: {
+      start: new Date(new Date().getFullYear(), new Date().getMonth(), 1)  // Start from the first day of the current month
+    },
   };
 
   handleDateClick(arg: any) {

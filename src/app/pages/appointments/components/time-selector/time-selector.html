@@ -1,11 +1,24 @@
-<div class="bg-white rounded-xl shadow-lg border border-yellow-100 p-6 h-full">
+<div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 h-full">
   <div class="flex items-center justify-center mb-4">
-    <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
-    <h3 class="text-lg font-semibold text-gray-800">Choose a Time</h3>
+    <h3 class="text-2xl font-semibold text-gray-800">2. Choose a Time</h3>
   </div>
-  
-  <div class="mb-4">
-    <time-slots 
+
+    @if (selectedTime) {
+    <div class="mt-4 sm:mt-8 mb-4 p-3 bg-[#E1F5E7] rounded-lg">
+      <p class="text-sm text-gray-800 text-center">
+        Selected Time: {{ selectedTime }}
+      </p>
+    </div>
+  } @else {
+    <div class="mt-4 mb-4 p-3 bg-[#FFEBEE] rounded-lg">
+      <p class="text-sm text-gray-800 text-center">
+        No Time Selected
+      </p>
+    </div>
+  }
+
+  <div class="mt-8 sm:mt-16">
+    <time-slots class="w-full mx-auto"
       [startHour]="8" 
       [endHour]="15" 
       [endMinute]="30"
@@ -14,10 +27,5 @@
       (slotSelected)="onTimeSelected($event)">
     </time-slots>
   </div>
-  
-  <div *ngIf="selectedTime" class="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-    <p class="text-sm text-yellow-700 text-center">
-      Selected Time: {{ selectedTime }}
-    </p>
-  </div>
+
 </div>

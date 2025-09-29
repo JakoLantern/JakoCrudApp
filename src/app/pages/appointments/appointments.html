@@ -1,8 +1,23 @@
-<app-navbar></app-navbar>
+<div class="bg-gradient-to-b from-gray to-[#E1F5E7] min-h-screen">
+    <div class="container mx-auto px-4"> <!-- Add this wrapper for consistent centering and max-width -->
+        <div class="text-center mt-12 mb-12">
+            <div class="flex flex-col items-center justify-center h-16">
+                <h1 class="text-4xl font-bold text-gray-800">
+                    Appointments
+                </h1>
+                <p class="text-gray-600 mt-2">Click one of the options below</p>
+            </div>
 
-<h1 class="text-3xl font-bold">Appointments</h1>
-
-<div class="flex flex-row justify-center gap-5">
-    <selector-card title="Book an appointment" description="Schedule an available appointment" routerLink="book"></selector-card>
-    <selector-card title="View Appointments" description="View your scheduled appointments" routerLink="view"></selector-card>
+            <div class="mt-8 md:mt-16">
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                    <selector-card title="Book an appointment" description="Schedule an available appointment"
+                        routerLink="book"
+                        icon='<div class="w-35 h-35 bg-[#256B55] mb-10 rounded-full flex items-center justify-center"><svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></div>'></selector-card>
+                    <selector-card title="View Appointments" description="View your scheduled appointments"
+                        routerLink="view"
+                        icon='<div class="w-35 h-35 bg-[#256B55] mb-10 rounded-full flex items-center justify-center"><svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></div>'></selector-card>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

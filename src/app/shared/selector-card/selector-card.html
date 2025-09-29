@@ -1,7 +1,10 @@
 <div class="flex flex-wrap justify-center gap-4 cursor-pointer hover:opacity-80 transition-opacity">
-  <a class="bg-white border border-gray-300 rounded-2xl shadow-md max-w-[300px] w-full sm:w-[250px] p-4"
-  [routerLink]="routerLink">
-    <h3 class="text-xl font-semibold mb-2">{{title}}</h3>
-    <p class="text-gray-600">{{description}}</p>
+  <a class="bg-white border border-gray-300 rounded-2xl shadow-md w-full max-w-sm h-80 sm:max-w-md sm:h-96 md:max-w-lg md:h-[28rem] p-6 flex flex-col items-center justify-center text-center"
+    [routerLink]="routerLink">
+    <div class="flex justify-center mb-6" [innerHTML]="iconHtml"></div>
+    <div>
+      <h3 class="text-2xl font-semibold mb-2">{{title}}</h3>
+      <p class="text-gray-600 text-lg">{{description}}</p>
+    </div>
   </a>
 </div>

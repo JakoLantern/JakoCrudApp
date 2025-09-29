@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { Navbar } from '../../../shared/navbar/navbar';
 import { DateSelector } from '../components/date-selector/date-selector';
 import { TimeSelector } from '../components/time-selector/time-selector';
-import { NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
+import { BackButton } from '../../../shared/back-button/back-button';
+import { AppointmentSummary } from '../components/appointment-summary/appointment-summary';
 
 @Component({
   selector: 'app-book-appointment',
-  imports: [Navbar, DateSelector, TimeSelector, NgIf, DatePipe],
+  imports: [DateSelector, TimeSelector, DatePipe, BackButton, AppointmentSummary],
   templateUrl: './book-appointment.html',
   styleUrl: './book-appointment.scss'
 })

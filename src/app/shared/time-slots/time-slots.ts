@@ -22,6 +22,8 @@ export class TimeSlots implements OnInit {
 
   ngOnInit() {
     this.generateSlots();
+    this.selectedSlot = this.slots[0] || null;
+    this.slotSelected.emit(this.selectedSlot);
   }
 
   private generateSlots() {
@@ -42,9 +44,9 @@ export class TimeSlots implements OnInit {
   }
 
   selectSlot(slot: string) {
-    if (this.disabledSlots.includes(slot)) return;
+    if (this.disabledSlots.includes(slot) || this.selectedSlot === slot) return;
     
-    this.selectedSlot = this.selectedSlot === slot ? null : slot;
+    this.selectedSlot = slot;
     this.slotSelected.emit(this.selectedSlot);
   }
 
