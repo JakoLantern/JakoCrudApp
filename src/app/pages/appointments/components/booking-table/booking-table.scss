@@ -1,0 +1,26 @@
+table {
+  width: fit-content;
+  table-layout: auto;
+}
+
+.mat-elevation-z8 {
+  border-radius: 20px;
+  overflow: hidden; 
+}
+
+.mat-mdc-table {
+  background-color: white;
+  border: 1px solid #eee;
+}
+
+.mat-mdc-header-row{
+  background-color: #256B55;
+  color: white;
+}
+
+.mat-mdc-row{
+  &:hover {
+    background-color: #DBECE6;
+    cursor: pointer;
+  }
+}

@@ -6,15 +6,6 @@ export const routes: Routes = [
         loadComponent: () => import('./layouts/main/main').then(m => m.Main),
         children: [
             {
-                path: '',
-                pathMatch: 'full',
-                loadComponent: () => import('./pages/login/login').then(m => m.Login)
-            },
-            {
-                path: 'login',
-                loadComponent: () => import('./pages/login/login').then(m => m.Login)
-            },
-            {
                 path: 'dashboard',
                 loadComponent: () => import('./pages/dashboard/dashboard').then(m => m.Dashboard)
             },
@@ -34,11 +25,15 @@ export const routes: Routes = [
                 path: 'appointments/view',
                 loadComponent: () => import('./pages/appointments/view-appointment/view-appointment').then(m => m.ViewAppointment)
             },
-            {
-                path: 'register',
-                loadComponent: () => import('./pages/register/register').then(m => m.Register)
-            }
         ]
+    },
+    {
+        path: 'login',
+        loadComponent: () => import('./pages/login/login').then(m => m.Login)
+    },
+    {
+        path: 'register',
+        loadComponent: () => import('./pages/register/register').then(m => m.Register)
     },
     // fallback
     {

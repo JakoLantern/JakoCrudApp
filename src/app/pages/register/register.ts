@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RegisterCard } from './components/register-card/register-card';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink],
+  imports: [RegisterCard],
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })

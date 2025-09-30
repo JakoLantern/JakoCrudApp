@@ -45,8 +45,15 @@ export class SupabaseService {
         return this.supabase.auth.onAuthStateChange(callback)
     }
 
-    signIn(email: string) {
-        return this.supabase.auth.signInWithOtp({ email })
+    signIn(email: string, password: string) {
+        return this.supabase.auth.signInWithPassword({ email, password })
+    }
+
+    register(firstName: string, lastName: string, email: string, password: string, confirmedPassword: string) {
+        if (password !== confirmedPassword) {
+            throw new Error("Passwords do not match");
+        }
+        return this.supabase.auth.signUp({ email, password })
     }
 
     signOut() {
@@ -60,5 +67,14 @@ export class SupabaseService {
         }
 
         return this.supabase.from('profiles').upsert(update)
+    }
+
+    createUserProfile(userId: string, firstName: string, lastName: string, email: string) {
+        return this.supabase.from('USER').insert({
+            User_ID: userId,
+            user_firstName: firstName,
+            user_lastName: lastName,
+            user_email: email
+        })
     }
 }
