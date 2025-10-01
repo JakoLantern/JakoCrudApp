@@ -1,37 +1,32 @@
-<div class="bg-gradient-to-b from-gray to-[#E1F5E7] min-h-screen">
-    <div class="pt-4 pl-2 sm:pl-2 md:pl-12 lg:pl-20">
-        <back-button text="Back" routerLink="/appointments"></back-button>
+<!-- Full viewport with gradient - matching book-appointment and home pages -->
+<div class="min-h-screen bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-500 py-8 px-4">
+  <!-- Content Container -->
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Section with Back Button -->
+    <div class="flex items-center justify-between mb-8">
+      <back-button text="Back" routerLink="/appointments"></back-button>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white drop-shadow-lg flex-1 text-center">My Appointments</h1>
+      <div class="w-32"></div> <!-- Spacer to balance the layout -->
     </div>
-    <div class="max-w-screen-2xl mx-auto px-4 pb-12">
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-[#256B55] rounded-full mb-4">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                    </path>
-                </svg>
-            </div>
-            <h1 class="text-4xl font-bold text-gray-800 mb-2">View Appointments</h1>
-            <p class="text-gray-600 max-w-md mx-auto">View and manage all your scheduled appointments</p>
-        </div>
-
-
-        <div class="mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-                <!-- Booked appointment table -->
-                <div class="col-span-2">
-                    <booking-table></booking-table>
-                </div>
-
-                <!-- Full appointment view of selected table -->
-                <div>
-                    <full-appointment-view></full-appointment-view>
-                </div>
-
-            </div>
-        </div>
+    
+    <!-- Description -->
+    <div class="text-center mb-12">
+      <p class="text-white text-lg sm:text-xl max-w-2xl mx-auto drop-shadow-md">
+        View and manage all your scheduled appointments
+      </p>
     </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Appointments Table (takes 2 columns on larger screens) -->
+      <div class="lg:col-span-2">
+        <booking-table (appointmentSelected)="onAppointmentSelected($event)"></booking-table>
+      </div>
+
+      <!-- Appointment Details View -->
+      <div>
+        <full-appointment-view [appointment]="selectedAppointment"></full-appointment-view>
+      </div>
+    </div>
+  </div>
 </div>

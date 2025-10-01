@@ -1,35 +1,52 @@
-<nav class="flex items-center justify-between bg-white shadow-sm px-4 py-3">
-    <!-- Left: Brand -->
-    <div class="text-xl font-bold">
-        MyApp
+<nav class="relative bg-white shadow-sm">
+    <div class="flex items-center justify-between px-4 py-3">
+        <!-- Left: Brand -->
+        <div class="text-xl font-bold text-emerald-600">
+            MyApp
+        </div>
+
+        <!-- Center: Links (hidden on mobile, visible on lg and up) -->
+        <ul class="hidden lg:flex space-x-6">
+            <li><a routerLink="/dashboard" routerLinkActive="active" class="nav-link">Home</a></li>
+            <li><a routerLink="/appointments" routerLinkActive="active" class="nav-link">Appointments</a></li>
+        </ul>
+
+        <!-- Right: Actions -->
+        <div class="flex items-center space-x-2 sm:space-x-4">
+            <!-- Mobile menu button -->
+            <button (click)="toggleMenu()" class="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors">
+                @if (!isMenuOpen) {
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                } @else {
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                }
+            </button>
+
+            <button routerLink="/login" class="bg-red-500 hover:bg-red-600 text-white py-2 px-3 sm:px-4 rounded transition-colors text-sm sm:text-base"
+                style="cursor: pointer;">Logout</button>
+        </div>
     </div>
 
-    <!-- Center: Links (hidden on mobile, visible on lg and up) -->
-    <ul class="hidden lg:flex space-x-6">
-        <li><a routerLink="/dashboard" routerLinkActive="active" class="nav-link">Home</a></li>
-        <li><a routerLink="/appointments" routerLinkActive="active" class="nav-link">Appointments</a></li>
-    </ul>
-
-    <!-- Right: Actions -->
-    <div class="flex items-center space-x-4">
-        <!-- Mobile menu button -->
-        <button (click)="toggleMenu()" class="lg:hidden p-2 rounded-md hover:bg-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-
-        <button routerLink="/login" class="bg-red-500 text-white py-2 px-4 rounded"
-            style="cursor: pointer;">Logout</button>
-    </div>
-
-    <!-- Mobile menu -->
+    <!-- Mobile menu with slide animation -->
     @if (isMenuOpen) {
-    <div class="lg:hidden absolute top-full left-0 right-0 bg-white shadow-md border-t">
-        <ul class="flex flex-col space-y-2 p-4">
-            <li><a routerLink="/dashboard" routerLinkActive="active" class="nav-link block" (click)="toggleMenu()">Home</a></li>
-            <li><a routerLink="/appointments" routerLinkActive="active" class="nav-link block" (click)="toggleMenu()">Appointments</a></li>
+    <div class="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t z-50 animate-slideDown">
+        <ul class="flex flex-col p-4">
+            <li class="border-b border-gray-100 last:border-b-0">
+                <a routerLink="/dashboard" routerLinkActive="active" 
+                   class="nav-link block py-3 px-2 hover:bg-gray-50 rounded transition-colors" 
+                   (click)="toggleMenu()">Home</a>
+            </li>
+            <li class="border-b border-gray-100 last:border-b-0">
+                <a routerLink="/appointments" routerLinkActive="active" 
+                   class="nav-link block py-3 px-2 hover:bg-gray-50 rounded transition-colors" 
+                   (click)="toggleMenu()">Appointments</a>
+            </li>
         </ul>
     </div>
     }

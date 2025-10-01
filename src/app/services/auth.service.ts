@@ -5,9 +5,11 @@ import {
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
   updateProfile,
-  User
+  User,
+  onAuthStateChanged
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, Timestamp } from 'firebase/firestore';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 export interface UserProfile {
   uid: string;
@@ -37,6 +39,47 @@ export interface LoginData {
 })
 export class AuthService {
   private firebase = inject(FirebaseService);
+  private currentUser$ = new BehaviorSubject<User | null>(null);
+  private authInitialized$ = new BehaviorSubject<boolean>(false);
+
+  constructor() {
+    // Listen to auth state changes
+    const auth = this.firebase.getAuth();
+    onAuthStateChanged(auth, (user) => {
+      console.log('🔐 AuthService: Auth state changed, user:', user?.uid || 'null');
+      this.currentUser$.next(user);
+      if (!this.authInitialized$.value) {
+        this.authInitialized$.next(true);
+        console.log('✅ AuthService: Auth initialized');
+      }
+    });
+  }
+
+  /**
+   * Observable that emits when auth state changes
+   */
+  get user$(): Observable<User | null> {
+    return this.currentUser$.asObservable();
+  }
+
+  /**
+   * Wait for Firebase Auth to initialize and return the current user
+   * This is crucial for SSR/hydration scenarios
+   */
+  async waitForAuthInit(): Promise<User | null> {
+    if (this.authInitialized$.value) {
+      return this.currentUser$.value;
+    }
+    
+    return new Promise((resolve) => {
+      const subscription = this.authInitialized$.subscribe((initialized) => {
+        if (initialized) {
+          subscription.unsubscribe();
+          resolve(this.currentUser$.value);
+        }
+      });
+    });
+  }
 
   /**
    * Register a new user with Firebase Auth and create profile in Firestore

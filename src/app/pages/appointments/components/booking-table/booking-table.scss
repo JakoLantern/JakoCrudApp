@@ -1,26 +1,100 @@
-table {
-  width: fit-content;
-  table-layout: auto;
-}
-
-.mat-elevation-z8 {
-  border-radius: 20px;
-  overflow: hidden; 
-}
-
+// Table styling
 .mat-mdc-table {
+  width: 100%;
   background-color: white;
-  border: 1px solid #eee;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-.mat-mdc-header-row{
-  background-color: #256B55;
-  color: white;
+// Skeleton loader shimmer animation
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
 }
 
-.mat-mdc-row{
+.animate-pulse > div {
+  background: linear-gradient(
+    to right,
+    #e5e7eb 0%,
+    #d1d5db 20%,
+    #e5e7eb 40%,
+    #e5e7eb 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+// Header row styling
+.mat-mdc-header-row {
+  background-color: #f9fafb !important;
+  
+  .mat-mdc-header-cell {
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+    padding: 16px 12px;
+  }
+}
+
+// Data rows styling
+.mat-mdc-row {
+  transition: background-color 0.2s ease;
+  
   &:hover {
-    background-color: #DBECE6;
-    cursor: pointer;
+    background-color: #f9fafb;
+  }
+  
+  .mat-mdc-cell {
+    padding: 16px 12px;
+    color: #1f2937;
+    border-bottom: 1px solid #e5e7eb;
+  }
+}
+
+// Status badges
+.status-confirmed {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-cancelled {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+// Paginator styling
+::ng-deep .mat-mdc-paginator {
+  background-color: transparent !important;
+  color: #374151 !important;
+  
+  .mat-mdc-paginator-container {
+    justify-content: center;
+    padding: 8px 0;
+  }
+  
+  .mat-mdc-icon-button {
+    color: #059669;
+    
+    &:hover {
+      background-color: #d1fae5;
+    }
+    
+    &[disabled] {
+      color: #9ca3af;
+    }
   }
 }

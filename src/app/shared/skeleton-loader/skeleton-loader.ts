@@ -71,6 +71,16 @@ import { CommonModule } from '@angular/common';
           <div class="h-4 bg-gray-200 rounded w-4/6"></div>
         </div>
       }
+      
+      @if (type === 'table-row') {
+        <!-- Table row skeleton -->
+        <div class="flex items-center gap-4 py-4 px-4">
+          <div class="h-4 bg-gray-300 rounded flex-1"></div>
+          <div class="h-4 bg-gray-300 rounded flex-1"></div>
+          <div class="h-4 bg-gray-300 rounded w-24"></div>
+          <div class="h-8 bg-gray-300 rounded w-20"></div>
+        </div>
+      }
     </div>
   `,
   styles: [`
@@ -109,7 +119,7 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class SkeletonLoader {
-  @Input() type: 'calendar' | 'time-grid' | 'summary' | 'text' | 'button' | 'card' = 'text';
+  @Input() type: 'calendar' | 'time-grid' | 'summary' | 'text' | 'button' | 'card' | 'table-row' = 'text';
   @Input() columns: number = 4;
   @Input() rows: number = 4;
   @Input() width: string = '100%';

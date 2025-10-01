@@ -15,6 +15,7 @@ import {
   arrayUnion
 } from '@angular/fire/firestore';
 import { Auth } from '@angular/fire/auth';
+import { AuthService } from './auth.service';
 
 export interface DateDoc {
   dateId: string;
@@ -51,6 +52,7 @@ export interface Appointment {
 export class AppointmentsService {
   private firestore = inject(Firestore);
   private auth = inject(Auth);
+  private authService = inject(AuthService);
 
   /**
    * Get all times data (cached for efficiency)
@@ -148,7 +150,7 @@ export class AppointmentsService {
    * Uses Firestore transaction for atomicity
    */
   async bookAppointment(dateId: string, timeId: string): Promise<{ success: boolean; appointmentId?: string; error?: string }> {
-    const currentUser = this.auth.currentUser;
+    const currentUser = await this.authService.waitForAuthInit();
     
     if (!currentUser) {
       return { success: false, error: 'User not authenticated' };
@@ -210,31 +212,70 @@ export class AppointmentsService {
 
   /**
    * Get all appointments for the current user
+   * Fetches by userId only and filters/sorts client-side to avoid needing a composite index
+   * Waits for auth initialization before querying (critical for SSR/page refresh scenarios)
    */
   async getUserAppointments(): Promise<Appointment[]> {
-    const currentUser = this.auth.currentUser;
+    console.log('🔍 getUserAppointments called');
+    
+    // Wait for Firebase Auth to initialize (critical for SSR and page refresh)
+    console.log('⏳ Waiting for auth initialization...');
+    const currentUser = await this.authService.waitForAuthInit();
+    
+    console.log('📝 Current user after auth init:', currentUser);
+    console.log('🆔 Current user UID:', currentUser?.uid);
     
     if (!currentUser) {
+      console.log('❌ No user logged in after auth initialization');
       return [];
     }
 
     const appointmentsRef = collection(this.firestore, 'appointments');
     const q = query(
       appointmentsRef,
-      where('userId', '==', currentUser.uid),
-      where('status', '==', 'confirmed'),
-      orderBy('date', 'asc')
+      where('userId', '==', currentUser.uid)
     );
 
+    console.log('🔎 Querying appointments for userId:', currentUser.uid);
+    
     const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => doc.data() as Appointment);
+    console.log('📦 Total documents fetched:', snapshot.size);
+    
+    const appointments = snapshot.docs.map(doc => {
+      const data = doc.data() as Appointment;
+      console.log('📄 Appointment doc:', {
+        id: doc.id,
+        userId: data.userId,
+        date: data.date,
+        time: data.time,
+        status: data.status
+      });
+      return data;
+    });
+    
+    console.log('📋 All appointments:', appointments);
+    
+    // Filter and sort client-side
+    const confirmedAppointments = appointments.filter(apt => apt.status === 'confirmed');
+    console.log('✅ Confirmed appointments:', confirmedAppointments);
+    
+    const sortedAppointments = confirmedAppointments.sort((a, b) => a.date.localeCompare(b.date));
+    console.log('📅 Sorted appointments:', sortedAppointments);
+    
+    // Check if userIds match
+    appointments.forEach(apt => {
+      const matches = apt.userId === currentUser.uid;
+      console.log(`🔗 UserId match for ${apt.appointmentId}:`, matches, `(${apt.userId} === ${currentUser.uid})`);
+    });
+    
+    return sortedAppointments;
   }
 
   /**
    * Cancel an appointment (marks as cancelled and adds timeId back to date's availableTimeIds)
    */
   async cancelAppointment(appointmentId: string): Promise<{ success: boolean; error?: string }> {
-    const currentUser = this.auth.currentUser;
+    const currentUser = await this.authService.waitForAuthInit();
     
     if (!currentUser) {
       return { success: false, error: 'User not authenticated' };

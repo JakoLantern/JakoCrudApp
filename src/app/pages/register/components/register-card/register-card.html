@@ -1,115 +1,115 @@
-<div class="bg-white rounded-xl shadow-lg p-12 sm:p-8 flex flex-col min-w-[800px] min-h-[500px]">
-    <div class="flex flex-col items-center justify-center mb-8">
-        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Register</h3>
-        <p class="text-gray-600 text-center">Create your account to get started.</p>
+<div class="backdrop-blur-md bg-white/80 rounded-2xl shadow-2xl p-5 sm:p-6 md:p-8 flex flex-col w-full max-w-2xl border border-white/20">
+    <div class="flex flex-col items-center justify-center mb-5 sm:mb-6">
+        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-1.5">Create Account</h3>
+        <p class="text-sm text-gray-700 text-center px-2">Join us today and start booking appointments.</p>
     </div>
 
     <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-        <div class="flex gap-4 mb-4">
+        <div class="flex flex-col sm:flex-row gap-3 mb-3">
             <div class="flex-1">
-                <label for="first-name" class="block text-gray-700 font-medium mb-2">First Name</label>
+                <label for="first-name" class="block text-gray-800 font-semibold mb-1.5 text-sm">First Name</label>
                 <input 
                     type="text" 
                     id="first-name" 
                     formControlName="firstName"
                     autocomplete="given-name"
-                    class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    class="border-2 border-gray-300 rounded-lg p-2.5 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/80 backdrop-blur-sm transition-all text-sm"
                     [class.border-red-500]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
                 />
 
                 @if(registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched){
-                    <div class="text-red-500 text-sm mt-1">
+                    <div class="text-red-600 text-xs mt-1 font-medium">
                         First name is required
                     </div>
                 }
             </div>
             <div class="flex-1">
-                <label for="last-name" class="block text-gray-700 font-medium mb-2">Last Name</label>
+                <label for="last-name" class="block text-gray-800 font-semibold mb-1.5 text-sm">Last Name</label>
                 <input 
                     type="text" 
                     id="last-name" 
                     formControlName="lastName"
                     autocomplete="family-name"
-                    class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    class="border-2 border-gray-300 rounded-lg p-2.5 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/80 backdrop-blur-sm transition-all text-sm"
                     [class.border-red-500]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
                 />
                 @if(registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched){
-                    <div class="text-red-500 text-sm mt-1">
+                    <div class="text-red-600 text-xs mt-1 font-medium">
                         Last name is required
                     </div>
 
                 }
             </div>
         </div>
-        <div class="mb-4">
-            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+        <div class="mb-3">
+            <label for="email" class="block text-gray-800 font-semibold mb-1.5 text-sm">Email</label>
             <input 
                 type="email" 
                 id="email" 
                 formControlName="email"
                 autocomplete="email"
-                class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                class="border-2 border-gray-300 rounded-lg p-2.5 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/80 backdrop-blur-sm transition-all text-sm"
                 [class.border-red-500]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
             />
             @if(registerForm.get('email')?.invalid && registerForm.get('email')?.touched){
-                <div class="text-red-500 text-sm mt-1">
+                <div class="text-red-600 text-xs mt-1 font-medium">
                     Please enter a valid email
                 </div>
             }
         </div>
-        <div class="mb-4">
-            <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
+        <div class="mb-3">
+            <label for="password" class="block text-gray-800 font-semibold mb-1.5 text-sm">Password</label>
             <input 
                 type="password" 
                 id="password" 
                 formControlName="password"
                 autocomplete="new-password"
-                class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                class="border-2 border-gray-300 rounded-lg p-2.5 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/80 backdrop-blur-sm transition-all text-sm"
                 [class.border-red-500]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
             />
 
             @if(registerForm.get('password')?.invalid && registerForm.get('password')?.touched){
-                <div class="text-red-500 text-sm mt-1">
+                <div class="text-red-600 text-xs mt-1 font-medium">
                     Password must be at least 6 characters
                 </div>
             }
         </div>
-        <div class="mb-6">
-            <label for="confirm-password" class="block text-gray-700 font-medium mb-2">Confirm Password</label>
+        <div class="mb-5">
+            <label for="confirm-password" class="block text-gray-800 font-semibold mb-1.5 text-sm">Confirm Password</label>
             <input 
                 type="password" 
                 id="confirm-password" 
                 formControlName="confirmPassword"
                 autocomplete="new-password"
-                class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                class="border-2 border-gray-300 rounded-lg p-2.5 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white/80 backdrop-blur-sm transition-all text-sm"
                 [class.border-red-500]="(registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) || registerForm.errors?.['passwordMismatch']"
             />
             @if(registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched){
-                <div class="text-red-500 text-sm mt-1">
+                <div class="text-red-600 text-xs mt-1 font-medium">
                     Please confirm your password
                 </div>
             }
             @if(registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched){
-                <div class="text-red-500 text-sm mt-1">
+                <div class="text-red-600 text-xs mt-1 font-medium">
                     Passwords do not match
                 </div>
             }
         </div>
         @if(errorMessage){
-            <div class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <div class="mb-4 p-3 bg-red-50 border-2 border-red-300 text-red-700 rounded-lg backdrop-blur-sm text-sm">
                 {{ errorMessage }}
             </div>
         }
         <button 
             type="submit" 
-            class="bg-emerald-500 hover:bg-emerald-600 text-white p-3 rounded-lg w-full font-semibold transition-colors"
+            class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white py-2.5 px-4 rounded-lg w-full font-bold text-base transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             [disabled]="loading"
         >
-            {{ loading ? 'Loading...' : 'Register' }}
+            {{ loading ? 'Creating Account...' : 'Create Account' }}
         </button>
     </form>
 
-    <p class="mt-4 text-center">Or <a routerLink="/login" class="text-blue-500 underline hover:text-blue-700">login</a> if you already have an account.</p>
+    <p class="mt-5 text-center text-gray-700 text-sm">Already have an account? <a routerLink="/login" class="text-emerald-600 font-semibold hover:text-emerald-700 hover:underline transition-all">Login here</a></p>
 </div>
 
 <!-- Success Modal if the registration is successful -->

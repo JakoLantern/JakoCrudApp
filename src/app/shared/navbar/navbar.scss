@@ -6,12 +6,28 @@
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: #2E6F40;
+    background-color: #10b981;
     color: #fff;
   }
 
   &.active {
-    background-color: #2E6F40;
+    background-color: #059669;
     color: #fff;
   }
+}
+
+// Mobile menu slide animation
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.2s ease-out;
 }
