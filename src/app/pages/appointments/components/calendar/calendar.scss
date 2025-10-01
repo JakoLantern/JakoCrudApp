@@ -23,10 +23,82 @@
   font-weight: 500;
 }
 
-.fc-daygrid-day:hover {
-  background-color: #f0f9f0;
+// Make available dates hoverable (simplified)
+.fc-daygrid-day {
+  &:not(.past-date):not(.fully-booked-date):not(.selected-date) {
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #d1fae5 !important;
+      border: 1px solid #10b981 !important;
+      
+      .fc-daygrid-day-number {
+        color: #047857 !important;
+        font-weight: 600;
+      }
+    }
+  }
 }
 
-.fc-day-today {
-  background-color: var(--fc-today-bg-color) !important;
+// Today styling - only when NOT selected
+.fc-day-today:not(.selected-date) {
+  background-color: #dcfce7 !important;
+  border: 1px solid #22c55e !important;
+  
+  .fc-daygrid-day-number {
+    color: #15803d !important;
+    font-weight: 700 !important;
+  }
+}
+
+// Past dates - entire cell grayed out (darker)
+.fc-daygrid-day.past-date {
+  background-color: #d1d5db !important; // Darker gray
+  color: #6b7280 !important;
+  cursor: not-allowed !important;
+  
+  .fc-daygrid-day-number {
+    color: #6b7280 !important;
+  }
+  
+  .fc-daygrid-day-frame {
+    background-color: #d1d5db !important;
+  }
+}
+
+// Fully booked dates - entire cell darker gray/red, not clickable
+.fc-daygrid-day.fully-booked-date {
+  background-color: #e5e7eb !important; // Darker gray
+  cursor: not-allowed !important;
+  
+  .fc-daygrid-day-number {
+    color: #9ca3af !important;
+    text-decoration: line-through;
+  }
+  
+  .fc-daygrid-day-frame {
+    background-color: #e5e7eb !important;
+  }
+}
+
+// Selected date - vibrant emerald color (simplified, no scaling)
+// MUST override today styling when selected
+.fc-daygrid-day.selected-date,
+.fc-daygrid-day.selected-date.fc-day,
+.fc-daygrid-day.selected-date.fc-day-today,
+td.fc-daygrid-day.selected-date {
+  background: #10b981 !important; // Solid emerald
+  border: 2px solid #059669 !important;
+  cursor: pointer !important;
+  
+  .fc-daygrid-day-top,
+  .fc-daygrid-day-frame,
+  .fc-daygrid-day-bg {
+    background: #10b981 !important;
+  }
+  
+  .fc-daygrid-day-number {
+    color: white !important;
+    font-weight: 700 !important;
+  }
 }

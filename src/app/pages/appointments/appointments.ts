@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { SelectorCard } from '../../shared/selector-card/selector-card';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-appointments',
-  imports: [SelectorCard],
+  imports: [RouterLink],
   templateUrl: './appointments.html',
   styleUrl: './appointments.scss'
 })

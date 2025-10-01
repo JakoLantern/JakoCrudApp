@@ -1,0 +1,21 @@
+<div class="overlay">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <!-- Success Icon Circle with Checkmark -->
+    <div class="icon-circle">
+      <svg class="checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    
+    <!-- Success Title -->
+    <h2 class="title">Success!</h2>
+    
+    <!-- Success Message -->
+    <p class="message">{{ message }}</p>
+    
+    <!-- Proceed Button -->
+    <button class="proceed-button" (click)="onProceed()">
+      {{ buttonText }}
+    </button>
+  </div>
+</div>

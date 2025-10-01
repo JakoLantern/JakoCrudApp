@@ -1,42 +1,49 @@
-<!-- Hero Section -->
-<div class="bg-gradient-to-b from-gray to-[#E1F5E7]">
-  <div class="pt-4 pl-2 sm:pl-2 md:pl-12 lg:pl-20">
-    <back-button text="Back" routerLink="/appointments"></back-button>
-  </div>
-  <div class="max-w-screen-2xl mx-auto px-4 pb-12">
-    <!-- Header -->
+<!-- Full viewport with gradient - matching home and appointments -->
+<div class="min-h-screen bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-500 py-8 px-4">
+  <!-- Content Container -->
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Section with Back Button -->
+    <div class="flex items-center justify-between mb-8">
+      <back-button text="Back" routerLink="/appointments"></back-button>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white drop-shadow-lg flex-1 text-center">Book an Appointment</h1>
+      <div class="w-32"></div> <!-- Spacer to balance the layout -->
+    </div>
+    
+    <!-- Description -->
     <div class="text-center mb-12">
-      <div class="inline-flex items-center justify-center w-16 h-16 bg-[#256B55] rounded-full mb-4">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-        </svg>
-      </div>
-      <h1 class="text-4xl font-bold text-gray-800 mb-2">Book Your Appointment</h1>
-      <p class="text-gray-600 max-w-md mx-auto">Select your preferred date and time slot to schedule your appointment
-        with us.</p>
+      <p class="text-white text-lg sm:text-xl max-w-2xl mx-auto drop-shadow-md">
+        Select your preferred date and time slot to schedule your appointment with us.
+      </p>
     </div>
 
-    <div class="mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-        <!-- Date Selection Card -->
-        <div>
-          <date-selector (dateSelected)="onDateSelected($event)"></date-selector>
-        </div>
-
-        <!-- Time Selection Card -->
-        <div>
-          <time-selector (timeSelected)="onTimeSelected($event)"></time-selector>
-        </div>
-
-        <div>
-          <appointment-summary
-            [selectedDate]="selectedDate"
-            [selectedTime]="selectedTime"
-            (book)="bookAppointment()" />
-        </div>
-      </div>
-
+    <!-- Cards Grid - Direct component rendering -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <date-selector (dateSelected)="onDateSelected($event)"></date-selector>
+      <time-selector 
+        [selectedDateId]="selectedDateId"
+        (timeSelected)="onTimeSelected($event)"></time-selector>
+      <appointment-summary
+        [selectedDate]="selectedDate"
+        [selectedTime]="selectedTime"
+        [isBooking]="isBooking"
+        (book)="bookAppointment()"></appointment-summary>
     </div>
   </div>
 </div>
+
+<!-- Success Modal -->
+@if (showSuccessModal) {
+  <app-success-modal
+    [message]="successMessage"
+    [buttonText]="'View My Appointments'"
+    (proceed)="onSuccessModalProceed()">
+  </app-success-modal>
+}
+
+<!-- Error Modal -->
+@if (showErrorModal) {
+  <app-error-modal
+    [message]="errorMessage"
+    (close)="onErrorModalClose()">
+  </app-error-modal>
+}

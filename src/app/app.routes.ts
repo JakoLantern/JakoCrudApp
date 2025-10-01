@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { timesResolver } from './resolvers/times.resolver';
+import { datesResolver } from './resolvers/dates.resolver';
 
 export const routes: Routes = [
     {
@@ -19,7 +21,11 @@ export const routes: Routes = [
             },
             {
                 path: 'appointments/book',
-                loadComponent: () => import('./pages/appointments/book-appointment/book-appointment').then(m => m.BookAppointment)
+                loadComponent: () => import('./pages/appointments/book-appointment/book-appointment').then(m => m.BookAppointment),
+                resolve: {
+                    times: timesResolver,
+                    dates: datesResolver
+                }
             },
             {
                 path: 'appointments/view',

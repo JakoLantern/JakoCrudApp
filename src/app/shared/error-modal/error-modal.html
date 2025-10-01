@@ -1,0 +1,21 @@
+<div class="error-modal-overlay">
+  <div class="error-modal-card" (click)="$event.stopPropagation()">
+    <!-- Error Icon Circle with X -->
+    <div class="error-modal-icon-circle">
+      <svg class="error-modal-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </div>
+    
+    <!-- Error Title -->
+    <h2 class="error-modal-title">{{ title }}</h2>
+    
+    <!-- Error Message -->
+    <p class="error-modal-message">{{ message }}</p>
+    
+    <!-- Close Button -->
+    <button class="error-modal-button" (click)="onClose()">
+      {{ buttonText }}
+    </button>
+  </div>
+</div>

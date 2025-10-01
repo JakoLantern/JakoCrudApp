@@ -11,10 +11,11 @@ export class AppointmentSummary {
 
   @Input() selectedDate: Date | null = null;
   @Input() selectedTime: string | null = null;
+  @Input() isBooking = false;
   @Output() book = new EventEmitter<void>();
 
   canProceed(): boolean {
-    return !!(this.selectedDate && this.selectedTime);
+    return !!(this.selectedDate && this.selectedTime) && !this.isBooking;
   }
 
   onBookAppointment() {

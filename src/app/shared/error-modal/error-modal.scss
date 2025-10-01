@@ -1,0 +1,124 @@
+// Overlay - Blurs everything behind and prevents interaction
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; // Highest z-index - nothing above this
+  pointer-events: all; // Block all clicks behind
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+// Modal Card
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 450px;
+  width: 90%;
+  pointer-events: all;
+  animation: slideUp 0.4s ease-out;
+}
+
+// Red Circle Icon with X (for errors)
+.icon-circle {
+  width: 120px;
+  height: 120px;
+  background: #DC2626; // Red color for errors
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  animation: scaleIn 0.5s ease-out 0.2s backwards;
+}
+
+.error-icon {
+  width: 60px;
+  height: 60px;
+  color: white;
+  stroke-width: 3;
+}
+
+// Title
+.title {
+  color: #1F2937;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.5s ease-out 0.3s backwards;
+}
+
+// Message
+.message {
+  color: #6B7280;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  animation: fadeIn 0.5s ease-out 0.4s backwards;
+}
+
+// Close Button
+.close-button {
+  background: #DC2626; // Red for error
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.875rem 2.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  animation: fadeIn 0.5s ease-out 0.5s backwards;
+
+  &:hover {
+    background: #B91C1C;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

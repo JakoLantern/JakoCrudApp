@@ -4,31 +4,129 @@
         <p class="text-gray-600 text-center">Create your account to get started.</p>
     </div>
 
-    <form (ngSubmit)="onRegister()">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
         <div class="flex gap-4 mb-4">
             <div class="flex-1">
                 <label for="first-name" class="block text-gray-700 font-medium mb-2">First Name</label>
-                <input type="text" id="first-name" name="first-name" [(ngModel)]="firstName" class="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500" required />
+                <input 
+                    type="text" 
+                    id="first-name" 
+                    formControlName="firstName"
+                    autocomplete="given-name"
+                    class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    [class.border-red-500]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
+                />
+
+                @if(registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched){
+                    <div class="text-red-500 text-sm mt-1">
+                        First name is required
+                    </div>
+                }
             </div>
             <div class="flex-1">
                 <label for="last-name" class="block text-gray-700 font-medium mb-2">Last Name</label>
-                <input type="text" id="last-name" name="last-name" [(ngModel)]="lastName" class="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500" required />
+                <input 
+                    type="text" 
+                    id="last-name" 
+                    formControlName="lastName"
+                    autocomplete="family-name"
+                    class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    [class.border-red-500]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
+                />
+                @if(registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched){
+                    <div class="text-red-500 text-sm mt-1">
+                        Last name is required
+                    </div>
+
+                }
             </div>
         </div>
         <div class="mb-4">
             <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-            <input type="email" id="email" name="email" [(ngModel)]="email" class="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500" required />
+            <input 
+                type="email" 
+                id="email" 
+                formControlName="email"
+                autocomplete="email"
+                class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                [class.border-red-500]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+            />
+            @if(registerForm.get('email')?.invalid && registerForm.get('email')?.touched){
+                <div class="text-red-500 text-sm mt-1">
+                    Please enter a valid email
+                </div>
+            }
         </div>
         <div class="mb-4">
             <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
-            <input type="password" id="password" name="password" [(ngModel)]="password" class="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500" required />
+            <input 
+                type="password" 
+                id="password" 
+                formControlName="password"
+                autocomplete="new-password"
+                class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                [class.border-red-500]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+            />
+
+            @if(registerForm.get('password')?.invalid && registerForm.get('password')?.touched){
+                <div class="text-red-500 text-sm mt-1">
+                    Password must be at least 6 characters
+                </div>
+            }
         </div>
         <div class="mb-6">
             <label for="confirm-password" class="block text-gray-700 font-medium mb-2">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" [(ngModel)]="confirmPassword" class="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500" required />
+            <input 
+                type="password" 
+                id="confirm-password" 
+                formControlName="confirmPassword"
+                autocomplete="new-password"
+                class="border rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                [class.border-red-500]="(registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) || registerForm.errors?.['passwordMismatch']"
+            />
+            @if(registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched){
+                <div class="text-red-500 text-sm mt-1">
+                    Please confirm your password
+                </div>
+            }
+            @if(registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched){
+                <div class="text-red-500 text-sm mt-1">
+                    Passwords do not match
+                </div>
+            }
         </div>
-        <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white p-3 rounded-lg w-full font-semibold transition-colors">Register</button>
+        @if(errorMessage){
+            <div class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                {{ errorMessage }}
+            </div>
+        }
+        <button 
+            type="submit" 
+            class="bg-emerald-500 hover:bg-emerald-600 text-white p-3 rounded-lg w-full font-semibold transition-colors"
+            [disabled]="loading"
+        >
+            {{ loading ? 'Loading...' : 'Register' }}
+        </button>
     </form>
 
     <p class="mt-4 text-center">Or <a routerLink="/login" class="text-blue-500 underline hover:text-blue-700">login</a> if you already have an account.</p>
 </div>
+
+<!-- Success Modal if the registration is successful -->
+@if(showSuccessModal){
+    <app-success-modal 
+        [message]="successMessage"
+        [buttonText]="'Proceed to Login'"
+        (proceed)="onSuccessProceed()">
+    </app-success-modal>
+}
+
+<!-- Error Modal if registration fails -->
+@if(showErrorModal){
+    <app-error-modal 
+        [title]="errorModalTitle"
+        [message]="errorModalMessage"
+        [buttonText]="'Try Again'"
+        (close)="onErrorClose()">
+    </app-error-modal>
+}

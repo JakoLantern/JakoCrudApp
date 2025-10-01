@@ -1,32 +1,78 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { SupabaseService } from '../../../../services/supabase.service';
-import { Router } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'login-card',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './login-card.html',
   styleUrl: './login-card.scss'
 })
-export class LoginCard {
-  email: string = '';
-  password: string = '';
+export class LoginCard implements OnInit {
+  loginForm!: FormGroup;
+  loading = false;
+  errorMessage: string = '';
+  
+  private authService = inject(AuthService);
 
-  constructor(private supabaseService: SupabaseService, private router: Router) {}
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
-  async onLogin() {
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
+
+  async onLogin(): Promise<void> {
+    this.errorMessage = '';
+    
+    // UI validation - check if form is valid
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Please fill in all required fields correctly.';
+      return;
+    }
+
     try {
-      const { data, error } = await this.supabaseService.signIn(this.email, this.password);
-      if (error) {
-        alert('Login failed: ' + error.message);
+      this.loading = true;
+      const email = this.loginForm.value.email as string;
+      const password = this.loginForm.value.password as string;
+      
+      console.log('🔐 Attempting login for:', email);
+      
+      // Call AuthService to handle all Firebase logic
+      const user = await this.authService.login({ email, password });
+      
+      console.log('✅ Login successful!');
+      console.log('   User ID:', user.uid);
+      console.log('   Email:', user.email);
+      
+      // Navigate to dashboard on success
+      this.router.navigate(['/dashboard']);
+      
+    } catch (error: any) {
+      console.error('❌ Login failed:', error);
+      
+      // User-friendly error messages (UI logic)
+      if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password') {
+        this.errorMessage = 'Invalid email or password. Please try again.';
+      } else if (error.code === 'auth/user-not-found') {
+        this.errorMessage = 'No account found with this email. Please register first.';
+      } else if (error.code === 'auth/too-many-requests') {
+        this.errorMessage = 'Too many failed attempts. Please try again later.';
+      } else if (error.code === 'auth/network-request-failed') {
+        this.errorMessage = 'Network error. Please check your internet connection.';
       } else {
-        alert('Login successful!');
-        this.router.navigate(['/dashboard']);
+        this.errorMessage = error.message || 'Login failed. Please try again.';
       }
-    } catch (error) {
-      console.error('Login error:', error);
+    } finally {
+      this.loading = false;
     }
   }
 }

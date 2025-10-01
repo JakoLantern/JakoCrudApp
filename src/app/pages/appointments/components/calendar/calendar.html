@@ -1,1 +1,10 @@
-<full-calendar [options]="calendarOptions"></full-calendar>
+@if (isLoadingCalendar) {
+  <!-- Calendar skeleton loader -->
+  <skeleton-loader type="calendar"></skeleton-loader>
+} @else if (isBrowser) {
+  <full-calendar [options]="calendarOptions"></full-calendar>
+} @else {
+  <div class="p-8 text-center text-gray-500">
+    <p>Loading calendar...</p>
+  </div>
+}

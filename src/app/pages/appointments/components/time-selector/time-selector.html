@@ -3,29 +3,27 @@
     <h3 class="text-2xl font-semibold text-gray-800">2. Choose a Time</h3>
   </div>
 
-    @if (selectedTime) {
-    <div class="mt-4 sm:mt-8 mb-4 p-3 bg-[#E1F5E7] rounded-lg">
-      <p class="text-sm text-gray-800 text-center">
-        Selected Time: {{ selectedTime }}
-      </p>
-    </div>
-  } @else {
-    <div class="mt-4 mb-4 p-3 bg-[#FFEBEE] rounded-lg">
-      <p class="text-sm text-gray-800 text-center">
-        No Time Selected
+  @if (!selectedDateId) {
+    <div class="mt-4 mb-4 p-3 bg-gray-100 rounded-lg">
+      <p class="text-sm text-gray-600 text-center">
+        Please select a date first
       </p>
     </div>
   }
 
   <div class="mt-8 sm:mt-16">
-    <time-slots class="w-full mx-auto"
-      [startHour]="8" 
-      [endHour]="15" 
-      [endMinute]="30"
-      [intervalMinutes]="30"
-      [columns]="4"
-      (slotSelected)="onTimeSelected($event)">
-    </time-slots>
+    @if (selectedDateId) {
+      <time-slots class="w-full mx-auto"
+        [startHour]="8" 
+        [endHour]="15" 
+        [endMinute]="30"
+        [intervalMinutes]="30"
+        [columns]="4"
+        [loading]="loading"
+        [disabledSlots]="disabledSlots"
+        (slotSelected)="onTimeSelected($event)">
+      </time-slots>
+    }
   </div>
 
 </div>

@@ -19,8 +19,8 @@
 
         <button [disabled]="!canProceed()"
             class="w-full py-3 px-6 rounded-lg font-semibold text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            [class]="canProceed() ? 'bg-[#256B55]' : 'bg-gray-300'" (click)="onBookAppointment()">
-            {{ canProceed() ? 'Book Appointment' : 'Select Date & Time' }}
+            [class]="canProceed() ? 'bg-[#256B55] hover:bg-[#1e4a3a]' : 'bg-gray-300'" (click)="onBookAppointment()">
+            {{ isBooking ? 'Booking...' : (canProceed() ? 'Book Appointment' : 'Select Date & Time') }}
         </button>
     </div>
 </div>

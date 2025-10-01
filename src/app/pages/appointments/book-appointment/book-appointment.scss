@@ -1,26 +1,8 @@
-// Book appointment page styling
-
-// Custom gradient background
-.bg-gradient-to-br {
-  background: linear-gradient(to bottom right, #f0fdf4, #d1fae5);
-}
+// Book appointment page styling - removed custom gradient override to use Tailwind's gradient
 
 // Enhanced card hover effects
 .transform {
   transform: translateZ(0);
-}
-
-.hover\:scale-\[1\.02\]:hover {
-  transform: scale(1.02);
-}
-
-// Custom shadow variations
-.shadow-md {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.hover\:shadow-lg:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 // Button animations
