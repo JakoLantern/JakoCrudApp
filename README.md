@@ -135,49 +135,6 @@ Detailed technical docs are in the `docs/` folder:
 
 See `docs/README.md` for the full list.
 
-## Common Problems
-
-**"I keep getting logged out on reload"**
-- Check browser console for auth timing logs
-- Make sure Firebase config is correct
-- Try clearing localStorage and logging in again
-
-**"Metrics show 'Loading...' forever"**
-- Check if you're in a supported browser (Chrome/Edge recommended)
-- Open console to see metric collection logs
-- Some metrics need user interaction (FID)
-
-**"Vite throws SSR pre-bundle errors"**
-- Restart the dev server: `Ctrl+C` then `npm run dev`
-- Clear `.angular/cache` folder if persists
-
-**"Logout button doesn't work"**
-- Fixed as of latest update
-- Button now calls `authService.signOut()` properly
-
-**"Someone messed with my Firebase data"**
-- That's what happens when you expose your config 😅
-- Use Firebase security rules to restrict access
-- Better yet, don't use this in production!
-
-## Final Warning
+## Note
 
 🚨 **This is a demo project for learning purposes only.**
-
-Do NOT:
-- ❌ Deploy this to production without major security improvements
-- ❌ Store real user data
-- ❌ Use real payment information
-- ❌ Expose your Firebase credentials in real applications
-
-Do:
-- ✅ Use this to learn Angular SSR
-- ✅ Understand Firebase integration basics
-- ✅ Practice building CRUD apps
-- ✅ Experiment with performance metrics
-
-If you want to make this production-ready, start by reading the security issues section above!
-
-## License
-
-MIT - Educational project, use at your own risk.
