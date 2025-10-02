@@ -1,0 +1,54 @@
+// Smooth scroll behavior
+html {
+  scroll-behavior: smooth;
+}
+
+// Custom animation for cards
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Gradient text animation
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+// Apply animations to metric cards
+.backdrop-blur-md {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+// Make gradient values slightly animated
+.bg-clip-text {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+// Pulsing animation for awaiting input state
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+}
+
+.awaiting-input {
+  animation: pulse 2s ease-in-out infinite;
+  border-color: rgba(168, 85, 247, 0.5) !important;
+}

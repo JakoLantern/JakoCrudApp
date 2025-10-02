@@ -1,0 +1,159 @@
+<!-- Hero Section - Full viewport with gradient -->
+<div class="min-h-screen bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-500 flex items-center justify-center px-4 py-16">
+    <div class="text-center">
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
+            Performance Metrics
+        </h1>
+        <p class="text-white text-xl sm:text-2xl max-w-3xl mx-auto drop-shadow-md mb-8">
+            Real-time performance indicators for Server-Side Rendering and Hydration efficiency
+        </p>
+        <div class="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mt-8 animate-bounce">
+            <p class="text-white text-lg font-semibold">↓ Explore the metrics below ↓</p>
+        </div>
+    </div>
+</div>
+
+<!-- SSR Metrics Section - White background -->
+<div class="bg-white py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Timestamp Indicator -->
+        @if (metricsCollectionTime) {
+            <div class="text-center mb-8">
+                <div class="inline-block backdrop-blur-md bg-gradient-to-r from-emerald-500 to-teal-500 px-6 py-3 rounded-full shadow-lg">
+                    <p class="text-white font-semibold text-sm">
+                        📊 Metrics collected on <span class="font-bold">{{ metricsCollectionTime }}</span>
+                    </p>
+                    <p class="text-white/90 text-xs mt-1">
+                        Context: {{ metricsCollectionContext }}
+                    </p>
+                </div>
+            </div>
+        }
+        
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Server-Side Rendering Metrics</h2>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                Key performance indicators for initial page load and server response times
+            </p>
+        </div>
+
+        <!-- SSR Metrics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @for (metric of ssrMetrics; track metric.title) {
+                <div class="backdrop-blur-md bg-white/80 border-2 border-gray-200 rounded-2xl shadow-lg p-6 text-center hover:shadow-xl hover:scale-105 transition-all duration-300">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">{{ metric.title }}</h3>
+                    <div class="mb-3">
+                        @if (metric.unit === '' && (metric.value === 'Loading...' || metric.value === 'N/A' || metric.value === 'Error')) {
+                            <!-- Single-line status messages -->
+                            <span class="text-2xl font-bold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                                {{ metric.value }}
+                            </span>
+                        } @else if (metric.value === 'Firefox' || metric.value === 'Not' || metric.value === 'Check') {
+                            <!-- Browser compatibility messages (show value + unit together) -->
+                            <div class="text-lg font-semibold text-gray-500">
+                                {{ metric.value }} {{ metric.unit }}
+                            </div>
+                        } @else {
+                            <!-- Normal metric values -->
+                            <span class="text-5xl font-bold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                                {{ metric.value }}
+                            </span>
+                            @if (metric.unit) {
+                                <span class="text-2xl font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent ml-1">
+                                    {{ metric.unit }}
+                                </span>
+                            }
+                        }
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-sm text-gray-600 mb-2">{{ metric.description }}</p>
+                    
+                    <!-- Target -->
+                    <div class="inline-block bg-emerald-50 px-3 py-1 rounded-full">
+                        <p class="text-xs font-medium text-emerald-700">Target: {{ metric.target }}</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Hydration Metrics Section - Gradient background -->
+<div class="bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-500 py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Timestamp Indicator -->
+        @if (metricsCollectionTime) {
+            <div class="text-center mb-8">
+                <div class="inline-block backdrop-blur-md bg-white/90 px-6 py-3 rounded-full shadow-lg border-2 border-white/50">
+                    <p class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent font-semibold text-sm">
+                        📊 Metrics collected on <span class="font-bold">{{ metricsCollectionTime }}</span>
+                    </p>
+                    <p class="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent text-xs mt-1">
+                        Context: {{ metricsCollectionContext }}
+                    </p>
+                </div>
+            </div>
+        }
+        
+        <!-- Section Header -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-white mb-4 drop-shadow-lg">Hydration & Interactivity Metrics</h2>
+            <p class="text-white text-lg max-w-2xl mx-auto drop-shadow-md">
+                Performance indicators for client-side hydration and user interaction responsiveness
+            </p>
+        </div>
+
+        <!-- Hydration Metrics Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @for (metric of hydrationMetrics; track metric.title; let idx = $index) {
+                <div class="backdrop-blur-md bg-white/70 border-2 border-white/30 rounded-2xl shadow-xl p-6 text-center hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                     [class.awaiting-input]="idx === 3 && isFIDAwaitingInput">
+                    <!-- Metric Title -->
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">{{ metric.title }}</h3>
+                    
+                    <!-- Metric Value with Gradient -->
+                    <div class="mb-3">
+                        @if (metric.unit === '' && (metric.value === 'Loading...' || metric.value === 'N/A' || metric.value === 'Error')) {
+                            <!-- Single-line status messages -->
+                            <span class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                                {{ metric.value }}
+                            </span>
+                        } @else if (metric.value === 'Not' || metric.value === 'Awaiting') {
+                            <!-- Browser compatibility or waiting messages (show value + unit together) -->
+                            <div class="text-lg font-semibold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                                {{ metric.value }} {{ metric.unit }}
+                            </div>
+                        } @else {
+                            <!-- Normal metric values -->
+                            <span class="text-5xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                                {{ metric.value }}
+                            </span>
+                            @if (metric.unit) {
+                                <span class="text-2xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent ml-1">
+                                    {{ metric.unit }}
+                                </span>
+                            }
+                        }
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-sm text-gray-600 mb-2">{{ metric.description }}</p>
+                    
+                    <!-- FID Input Context (only show for FID metric) -->
+                    @if (idx === 3 && fidInputTarget) {
+                        <div class="mb-2 px-3 py-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg">
+                            <p class="text-xs font-semibold text-purple-800 mb-1">📍 Input Context:</p>
+                            <p class="text-xs text-purple-700">{{ fidInputTarget }}</p>
+                        </div>
+                    }
+                    
+                    <!-- Target -->
+                    <div class="inline-block bg-purple-50 px-3 py-1 rounded-full">
+                        <p class="text-xs font-medium text-purple-700">Target: {{ metric.target }}</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

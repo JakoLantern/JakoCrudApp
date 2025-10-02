@@ -9,6 +9,7 @@
         <ul class="hidden lg:flex space-x-6">
             <li><a routerLink="/dashboard" routerLinkActive="active" class="nav-link">Home</a></li>
             <li><a routerLink="/appointments" routerLinkActive="active" class="nav-link">Appointments</a></li>
+            <li><a routerLink="/metrics" routerLinkActive="active" class="nav-link">Metrics</a></li>
         </ul>
 
         <!-- Right: Actions -->
@@ -28,7 +29,7 @@
                 }
             </button>
 
-            <button routerLink="/login" class="bg-red-500 hover:bg-red-600 text-white py-2 px-3 sm:px-4 rounded transition-colors text-sm sm:text-base"
+            <button (click)="logout()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-3 sm:px-4 rounded transition-colors text-sm sm:text-base"
                 style="cursor: pointer;">Logout</button>
         </div>
     </div>
@@ -46,6 +47,11 @@
                 <a routerLink="/appointments" routerLinkActive="active" 
                    class="nav-link block py-3 px-2 hover:bg-gray-50 rounded transition-colors" 
                    (click)="toggleMenu()">Appointments</a>
+            </li>
+            <li class="border-b border-gray-100 last:border-b-0">
+                <a routerLink="/metrics" routerLinkActive="active" 
+                   class="nav-link block py-3 px-2 hover:bg-gray-50 rounded transition-colors" 
+                   (click)="toggleMenu()">Metrics</a>
             </li>
         </ul>
     </div>
