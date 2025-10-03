@@ -5,10 +5,13 @@ import { TitleCasePipe } from '@angular/common';
 import { AppointmentsService, Appointment } from '../../../../services/appointments.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter, Subject, takeUntil } from 'rxjs';
+import { ConfirmationModalComponent } from '../../../../shared/confirmation-modal/confirmation-modal';
+import { SuccessModalComponent } from '../../../../shared/success-modal/success-modal';
+import { ErrorModalComponent } from '../../../../shared/error-modal/error-modal';
 
 @Component({
   selector: 'booking-table',
-  imports: [MatTableModule, MatPaginatorModule, TitleCasePipe],
+  imports: [MatTableModule, MatPaginatorModule, TitleCasePipe, ConfirmationModalComponent, SuccessModalComponent, ErrorModalComponent],
   templateUrl: './booking-table.html',
   styleUrl: './booking-table.scss'
 })
@@ -24,6 +27,20 @@ export class BookingTable implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Output() appointmentSelected = new EventEmitter<Appointment>();
+
+  // Modal states
+  showConfirmationModal = false;
+  showSuccessModal = false;
+  showErrorModal = false;
+  
+  // Modal messages
+  confirmationTitle = '';
+  confirmationMessage = '';
+  successMessage = '';
+  errorMessage = '';
+  
+  // Appointment being cancelled
+  appointmentToCancel: Appointment | null = null;
 
   ngOnInit() {
     console.log('🎬 BookingTable: ngOnInit called');
@@ -96,20 +113,68 @@ export class BookingTable implements OnInit, AfterViewInit, OnDestroy {
   }
 
   cancelAppointment(appointment: Appointment) {
-    if (confirm(`Are you sure you want to cancel your appointment on ${appointment.date} at ${appointment.time}?`)) {
-      this.appointmentsService.cancelAppointment(appointment.appointmentId).then(result => {
-        if (result.success) {
-          // Reload appointments after successful cancellation
-          this.loadAppointments();
-          alert('Appointment cancelled successfully.');
-        } else {
-          alert(result.error || 'Failed to cancel appointment. Please try again.');
-        }
-      }).catch(error => {
-        console.error('Error cancelling appointment:', error);
-        alert('Failed to cancel appointment. Please try again.');
-      });
-    }
+    // Show confirmation modal
+    this.appointmentToCancel = appointment;
+    this.confirmationTitle = 'Cancel Appointment?';
+    this.confirmationMessage = `Are you sure you want to cancel your appointment on ${appointment.date} at ${appointment.time}?\n\nThis action cannot be undone.`;
+    this.showConfirmationModal = true;
+    this.cdr.detectChanges();
+  }
+
+  onConfirmCancel() {
+    if (!this.appointmentToCancel) return;
+    
+    // Hide confirmation modal
+    this.showConfirmationModal = false;
+    this.cdr.detectChanges();
+    
+    // Perform cancellation
+    this.appointmentsService.cancelAppointment(this.appointmentToCancel.appointmentId).then(result => {
+      if (result.success) {
+        // Show success modal
+        this.successMessage = `Your appointment on ${this.appointmentToCancel!.date} at ${this.appointmentToCancel!.time} has been cancelled successfully.`;
+        this.showSuccessModal = true;
+        this.cdr.detectChanges();
+        
+        // Reload appointments
+        this.loadAppointments();
+      } else {
+        // Show error modal
+        this.errorMessage = result.error || 'Failed to cancel appointment. Please try again.';
+        this.showErrorModal = true;
+        this.cdr.detectChanges();
+      }
+      
+      // Clear appointment reference
+      this.appointmentToCancel = null;
+    }).catch(error => {
+      console.error('Error cancelling appointment:', error);
+      
+      // Show error modal
+      this.errorMessage = 'Failed to cancel appointment. Please try again.';
+      this.showErrorModal = true;
+      this.cdr.detectChanges();
+      
+      // Clear appointment reference
+      this.appointmentToCancel = null;
+    });
+  }
+
+  onCancelCancel() {
+    // User clicked cancel, just close the modal
+    this.showConfirmationModal = false;
+    this.appointmentToCancel = null;
+    this.cdr.detectChanges();
+  }
+
+  onSuccessModalClose() {
+    this.showSuccessModal = false;
+    this.cdr.detectChanges();
+  }
+
+  onErrorModalClose() {
+    this.showErrorModal = false;
+    this.cdr.detectChanges();
   }
 
   onRowClick(appointment: Appointment) {

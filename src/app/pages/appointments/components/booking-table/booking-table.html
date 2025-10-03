@@ -121,3 +121,33 @@
     }
   }
 </div>
+
+<!-- Confirmation Modal -->
+@if (showConfirmationModal) {
+  <app-confirmation-modal
+    [title]="confirmationTitle"
+    [message]="confirmationMessage"
+    [confirmText]="'Yes, Cancel'"
+    [cancelText]="'No, Keep It'"
+    [isDangerous]="true"
+    (confirm)="onConfirmCancel()"
+    (cancel)="onCancelCancel()">
+  </app-confirmation-modal>
+}
+
+<!-- Success Modal -->
+@if (showSuccessModal) {
+  <app-success-modal
+    [message]="successMessage"
+    [buttonText]="'OK'"
+    (proceed)="onSuccessModalClose()">
+  </app-success-modal>
+}
+
+<!-- Error Modal -->
+@if (showErrorModal) {
+  <app-error-modal
+    [message]="errorMessage"
+    (close)="onErrorModalClose()">
+  </app-error-modal>
+}

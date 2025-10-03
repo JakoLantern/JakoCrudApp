@@ -1,0 +1,29 @@
+<div class="confirmation-modal-overlay">
+  <div class="confirmation-modal-card" (click)="$event.stopPropagation()">
+    <!-- Warning Icon Circle -->
+    <div class="confirmation-modal-icon-circle" [class.dangerous]="isDangerous">
+      <svg class="confirmation-modal-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+      </svg>
+    </div>
+    
+    <!-- Title -->
+    <h2 class="confirmation-modal-title">{{ title }}</h2>
+    
+    <!-- Message -->
+    <p class="confirmation-modal-message">{{ message }}</p>
+    
+    <!-- Action Buttons -->
+    <div class="confirmation-modal-buttons">
+      <button class="confirmation-modal-button cancel" (click)="onCancel()">
+        {{ cancelText }}
+      </button>
+      <button 
+        class="confirmation-modal-button confirm" 
+        [class.dangerous]="isDangerous"
+        (click)="onConfirm()">
+        {{ confirmText }}
+      </button>
+    </div>
+  </div>
+</div>
